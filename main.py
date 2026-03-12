@@ -6,7 +6,9 @@ import taskPopulator
 instructions.showInstructions()
 
 
-taskCreater.createTask()
+#taskCreater.createTask()
+
+taskPopulator.createTask()
 
 taskPopulator.requestInput()
 
