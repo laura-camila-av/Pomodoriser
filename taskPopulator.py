@@ -1,5 +1,11 @@
 #function to check the input doesn't exceed the maximum length capacity (to protect neat table formatting)
 
+def createTask():
+    #Task created with placeholder values
+
+    #Index 3 is for priority, Index 4 is for task length
+    new_task = list(range(5))
+
 taskName = "Empty"
 
 def checkInputLength(field):
@@ -8,7 +14,6 @@ def checkInputLength(field):
     else:
         return False
     
-
 def requestInput():
     taskName = str(input("Enter a brief description of the task you wish to complete then click enter."))
     exceedsMaxLength = checkInputLength(taskName)
@@ -23,4 +28,5 @@ def requestInput():
 def insertAtribute():
     new_task[0] = taskName
     print(new_task)
+
 
