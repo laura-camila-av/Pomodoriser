@@ -5,6 +5,7 @@ def createTask():
 
     #Index 3 is for priority, Index 4 is for task length
     new_task = list(range(5))
+    return new_task
 
 taskName = "Empty"
 
@@ -26,6 +27,7 @@ def requestInput():
 
 #simplify this function as you progress by making it like this insertAtribute(field,index)
 def insertAtribute():
+    new_task = createTask()
     new_task[0] = taskName
     print(new_task)
 
