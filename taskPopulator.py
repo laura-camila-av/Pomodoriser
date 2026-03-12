@@ -18,9 +18,8 @@ def requestInput():
       
     return taskName
 
-print("CHECK POINT: Works up to here")
-
-
-#def insertAtribute(field,index):
-
+#simplify this function as you progress by making it like this insertAtribute(field,index)
+def insertAtribute():
+    new_task[0] = taskName
+    print(new_task)
 
