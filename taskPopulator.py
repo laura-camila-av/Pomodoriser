@@ -1,5 +1,6 @@
 #function to check the input doesn't exceed the maximum length capacity (to protect neat table formatting)
 
+taskName = "Empty"
 
 def checkInputLength(field):
     if len(field) > 50:
