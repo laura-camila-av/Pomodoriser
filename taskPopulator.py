@@ -14,8 +14,8 @@ def requestInput():
     while exceedsMaxLength:
         print("Your description is too long. PLease re-enter a description that does not exceed 50 characters.")
         taskName = str(input("Enter a brief description of the task you wish to complete then click enter."))
-        if not exceedsMaxLength:
-            break
+        exceedsMaxLength = checkInputLength(taskName)
+      
     return taskName
 
 print("CHECK POINT: Works up to here")
