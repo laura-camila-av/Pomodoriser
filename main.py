@@ -1,17 +1,18 @@
 #Opening page
-import instructions
-import taskCreater
-import taskPopulator
 
-instructions.showInstructions()
-
-taskPopulator.requestTaskName()
-
-taskPopulator.requestTaskTime()
-
-taskPopulator.requestTaskPriority()
 #Eventually could break down insert attribute so tasks are added once at a time.
-taskPopulator.insertAtribute()
+if __name__ == "__main__":
+    import taskPopulator
+    import instructions
+    
+    instructions.showInstructions()
+
+    taskName = taskPopulator.requestTaskName()
+    pomodoroNo = taskPopulator.requestTaskTime()
+    taskPriority = taskPopulator.requestTaskPriority()
+    taskPopulator.insertAtribute()
 
 
+
+    
 

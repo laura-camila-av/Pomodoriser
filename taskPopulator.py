@@ -1,4 +1,9 @@
-#function to check the input doesn't exceed the maximum length capacity (to protect neat table formatting)
+def insertAtribute(taskName, pomodoroNo, taskPriority):
+    new_task = list(range(5))
+    new_task[1] = taskName
+    new_task[2] = pomodoroNo
+    new_task[3] = taskPriority
+    print(new_task)#function to check the input doesn't exceed the maximum length capacity (to protect neat table formatting)
 
 #def createTask():
     #Task created with placeholder values
@@ -23,7 +28,7 @@ def requestTaskName():
         taskName = str(input("Enter a brief description of the task you wish to complete then click enter."))
         exceedsMaxLength = checkInputLength(taskName)
     return taskName
-taskName = requestTaskName()
+#taskName = requestTaskName()
 
 def requestTaskTime():
     timeUnit= str(input(""""Estimate how long you think it will take to complete the task. 
@@ -54,7 +59,7 @@ def requestTaskTime():
         return pomodoroNo
     
 
-pomodoroNo = requestTaskTime()
+#pomodoroNo = requestTaskTime()
 
 def requestTaskPriority():
     taskPriority = float(input("Rate the priority of this task from 1-5."))
@@ -62,11 +67,11 @@ def requestTaskPriority():
         taskPriority = float(input("Your rating must be between 1 and 5. If you do not wish do give it a priority, enter 1."))
     return taskPriority
 
-taskPriority = requestTaskPriority()
+#taskPriority = requestTaskPriority()
 
 
 #simplify this function as you progress by making it like this insertAtribute(field,index)
-def insertAtribute():
+def insertAtribute(taskName, pomodoroNo, taskPriority):
     #new_task = createTask()
     new_task = list(range(5))
     #new_task[0] will be the index, this will be added after the tasks are in an array.
