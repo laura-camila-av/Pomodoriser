@@ -23,17 +23,15 @@ def checkInputLength(field):
 def requestTaskName():
     taskName = str(input("Enter a brief description of the task you wish to complete then click enter."))
     exceedsMaxLength = checkInputLength(taskName)
-    while exceedsMaxLength:
-        print("Your description is too long. PLease re-enter a description that does not exceed 50 characters.")
+    while exceedsMaxLength or len(taskName) == 0:
+        print("Your description is either empty or too long. PLease re-enter a description that does not exceed 50 characters.")
         taskName = str(input("Enter a brief description of the task you wish to complete then click enter."))
         exceedsMaxLength = checkInputLength(taskName)
     return taskName
 #taskName = requestTaskName()
 
 def requestTaskTime():
-    timeUnit= str(input(""""Estimate how long you think it will take to complete the task. 
-                            First, specify if your estimate is in hours, minutes or number of Pomodoro session
-                            For hours, enter H, for minutes, enter M and for Pomodoro (25 minutes) enter P."""))
+    timeUnit= str(input("Estimate how long you think it will take to complete the task. \n First, specify if your estimate is in hours, minutes or number of Pomodoro sessions. \n For hours, enter H, for minutes, enter M and for Pomodoro (25 minutes) enter P."))
     validTimeUnits = ['h','H','M','m','P','p']
 
     while timeUnit not in validTimeUnits:
@@ -63,7 +61,7 @@ def requestTaskTime():
 
 def requestTaskPriority():
     taskPriority = float(input("Rate the priority of this task from 1-5."))
-    while taskPriority <= 0 or taskPriority > 5:
+    while taskPriority not in [1,2,3,4,5]:
         taskPriority = float(input("Your rating must be between 1 and 5. If you do not wish do give it a priority, enter 1."))
     return taskPriority
 
