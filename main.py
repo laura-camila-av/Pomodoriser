@@ -10,7 +10,7 @@ if __name__ == "__main__":
     taskName = taskPopulator.requestTaskName()
     pomodoroNo = taskPopulator.requestTaskTime()
     taskPriority = taskPopulator.requestTaskPriority()
-    taskPopulator.insertAtribute()
+    taskPopulator.insertAtribute(taskName, pomodoroNo, taskPriority)
 
 
 
