@@ -52,7 +52,7 @@ def requestTaskTime():
         taskTime = int(input("Enter your estimate of how long it will take to complete the task in number of POMODORO sessions."))
         pomodoroNo = taskTime 
         return pomodoroNo
-    taskTime = str(input)
+    
 
 pomodoroNo = requestTaskTime()
 
@@ -60,6 +60,7 @@ def requestTaskPriority():
     taskPriority = float(input("Rate the priority of this task from 1-5."))
     while taskPriority <= 0 or taskPriority > 5:
         taskPriority = float(input("Your rating must be between 1 and 5. If you do not wish do give it a priority, enter 1."))
+    return taskPriority
 
 taskPriority = requestTaskPriority()
 
@@ -67,10 +68,6 @@ taskPriority = requestTaskPriority()
 #simplify this function as you progress by making it like this insertAtribute(field,index)
 def insertAtribute():
     #new_task = createTask()
-    print("Task name")
-    print(taskName)
-    print("Pomodoro Number")
-    print(pomodoroNo)
     new_task = list(range(5))
     #new_task[0] will be the index, this will be added after the tasks are in an array.
 
