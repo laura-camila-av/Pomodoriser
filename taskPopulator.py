@@ -25,7 +25,7 @@ def requestTaskName():
         taskName = str(input("Enter a brief description of the task you wish to complete then click enter."))
         exceedsMaxLength = checkInputLength(taskName)
     return taskName
-
+pomodoroNo = 0
 def requestTaskTime():
     timeUnit= str(input(""""Estimate how long you think it will take to complete the task. 
                             First, specify if your estimate is in hours, minutes or number of Pomodoro session
@@ -36,8 +36,6 @@ def requestTaskTime():
         print("The time unit you entered is in valid.")
         timeUnit = str(input("For hours, enter H, for minutes, enter M and for Pomodoro (25 minutes) enter P."))
         return timeUnit
-    
-    pomodoroNo = 0
 
     if timeUnit == 'H' or timeUnit == 'h':
         taskTime = float(input("Enter your estimate of how long it will take to complete the task in HOURS."))
