@@ -86,7 +86,7 @@
          <p>Enter the estimated duration of your task.</p>
          <div class="input-group">
             <label for="task_time">Task Duration:</label>
-            <input type="number" id="task_time" name="task_time" min="0"><br>
+            <input type="number" id="task_time" name="task_time" min="0" step="1">
          </div>
 
         <input type="submit" value="Submit">
@@ -108,8 +108,24 @@ const taskLabel = document.querySelector('label[for="task_time"]');
 radios.forEach(radio => {
     radio.addEventListener('change', function() {
         
-        taskLabel.textContent = "Task Duration (" + this.value + "):";
+        taskLabel.textContent = "Task Duration ("+ this.value + "):";
     });
+});
+
+const timeAvailable = document.getElementById("time_available");
+const taskTime = document.getElementById("task_time");
+
+timeAvailable.addEventListener("input", function() {
+    const maxValue = parseInt(this.value);
+
+    if (!isNaN(maxValue)) {
+        taskTime.max = maxValue;
+
+        // If current value exceeds new max, reset it
+        if (parseInt(taskTime.value) > maxValue) {
+            taskTime.value = maxValue;
+        }
+    }
 });
 </script>
 
