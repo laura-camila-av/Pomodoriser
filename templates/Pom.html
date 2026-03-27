@@ -100,6 +100,18 @@
 
 
 <!--End of task input form-->
+<script>
+const radios = document.querySelectorAll('input[name="taskTimeUnit"]');
+
+const taskLabel = document.querySelector('label[for="task_time"]');
+
+radios.forEach(radio => {
+    radio.addEventListener('change', function() {
+        
+        taskLabel.textContent = "Task Duration (" + this.value + "):";
+    });
+});
+</script>
 
 </body>
 
