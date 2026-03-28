@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(183, 184, 247);
+    background-color: rgb(158, 160, 247);
     color: rgb(7, 9, 115);
     font-family: "Courier New";
     margin: 15px;
@@ -24,6 +24,17 @@ body {
         border-radius: 10px;
         margin: 10px;
   
+    }
+
+    .input-group {
+    background-color: rgb(176, 247, 173);
+    padding-right: 2px;
+    padding-left: 2px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    margin-right: 25%;
+    margin-left: 25%;
     }
 
      #form_text {
