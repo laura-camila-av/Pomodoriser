@@ -6,16 +6,15 @@
 <style>
   body {text-align: center;} 
     
-
 </style>
 
 <body>
 <h1>Pomodoriser</h1>
 <h2>What will you achieve today?</h2>
-<h3>Time available: {{time_available}}</h3>
-<!--Start of task input form-->
+<h3>Pomodoro Sessions Available: {{time_available}}</h3>
 
-   <div style="background-color: white; 
+<!-- Start of task input form -->
+<div style="background-color: white; 
    padding-top: 5px; 
    padding-bottom: 5px; 
    padding-right:10px; 
@@ -23,7 +22,7 @@
    border-radius: 10px; 
    margin-left: 12%; 
    margin-right: 12%;">
-        <form action="/getTaskInputs" method="post">
+    <form action="/getTaskInputs" method="post">
 
         <p>Enter a brief description of your task (not exceeding 50 characters).</p>
         <div class="input-group">
@@ -51,30 +50,36 @@
 
         <br>
         <input type="button" id="addTaskBtn" value="Add Task">
-        <input type="button" value="Generate Plan">
+        <input type="button" id="generatePlanBtn" value="Generate Plan">
 
     </form>
+</div>
 
-   </div>
+<!-- End of task input form -->
 
-<!--End of task input form-->
+<!-- Show message when plan is filled -->
+<p id="message" style="display:none; color: green;">You've filled your plan! Click Generate Plan to continue.</p>
+
 <script>
+const planLength = {{ time_available }};
+let remainingTime = planLength;
+const pomodoroHeader = document.querySelector('h3'); 
+
 const tasks = [];
 const radios = document.querySelectorAll('input[name="taskTimeUnit"]');
-const planLength = {{ time_available }};
 const taskLabel = document.querySelector('label[for="task_time"]');
 
 radios.forEach(radio => {
     radio.addEventListener('change', function() {
-            const maxValue = calculateMax();
+        const maxValue = calculateMax();
 
-    if (!isNaN(maxValue)) {
-        taskTime.max = maxValue;
+        if (!isNaN(maxValue)) {
+            taskTime.max = maxValue;
 
-        if (parseInt(taskTime.value) > maxValue) {
-            taskTime.value = maxValue;
+            if (parseInt(taskTime.value) > maxValue) {
+                taskTime.value = maxValue;
+            }
         }
-    }
         taskLabel.textContent = "Task Duration ("+ this.value + "):";
     });
 });
@@ -82,9 +87,8 @@ radios.forEach(radio => {
 const taskTime = document.getElementById("task_time");
 
 function calculateMax() {
-
     const unitSelected = document.querySelector('input[name="taskTimeUnit"]:checked').value;
-    if (!unitSelected) { return "No value selected."}
+    if (!unitSelected) { return "No value selected." }
     if (unitSelected == "Pomodoro Sessions") { 
         maxValue = planLength;
     }
@@ -94,16 +98,16 @@ function calculateMax() {
     else if (unitSelected == "Minutes") {
         maxValue = planLength / 25; 
     }
-    return maxValue
+    return maxValue;
 }
 
 const form = document.querySelector("form");
 const addTaskBtn = document.getElementById("addTaskBtn");
+const message = document.getElementById("message");
 
 addTaskBtn.addEventListener("click", function(event) {
     event.preventDefault(); // stop form submitting
 
-    // Get values
     const taskName = document.getElementById("task_name").value;
     const taskTime = document.getElementById("task_time").value;
     const selectedUnit = document.querySelector('input[name="taskTimeUnit"]:checked');
@@ -119,21 +123,73 @@ addTaskBtn.addEventListener("click", function(event) {
         unit: selectedUnit.value
     };
 
-    // Push into array
     tasks.push(task);
 
-    console.log("Current tasks:", tasks);
+    const pomodorosUsed = convertToPomodoros(task.duration, task.unit);
+    remainingTime -= pomodorosUsed;
+    if (remainingTime < 0) remainingTime = 0;
+    pomodoroHeader.textContent = `Pomodoro Sessions Available: ${Math.floor(remainingTime)}`;
 
-    // Clear form fields
+    console.log("Current tasks:", tasks);
+    console.log("Remaining Pomodoros:", remainingTime);
+
+    // Update the button visibility and message when remainingTime hits 0
+    if (remainingTime <= 0) {
+        addTaskBtn.style.display = "none";  // Hide the Add Task button
+        message.style.display = "block";    // Show the message
+    } else {
+        addTaskBtn.style.display = "inline";  // Show the Add Task button
+        message.style.display = "none";       // Hide the message
+    }
+
     document.getElementById("task_name").value = "";
     document.getElementById("task_time").value = "";
     selectedUnit.checked = false;
 });
 
+const generateBtn = document.getElementById("generatePlanBtn");
+
+generateBtn.addEventListener("click", function () {
+    if (tasks.length === 0) {
+        alert("Add at least one task first.");
+        return;
+    }
+
+    fetch("/generatePlan", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            tasks: tasks,
+            planLength: planLength
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        localStorage.setItem("plan", JSON.stringify(data.plan));
+        window.location.href = "/pomodoriser/plan-output";
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });
+});
+
+function convertToPomodoros(duration, unit) {
+    switch(unit) {
+        case "Pomodoro Sessions":
+            return duration;
+        case "Hours":
+            return duration * 2; // 1 hour = 2 pomodoros
+        case "Minutes":
+            return duration / 25; // 25 minutes = 1 pomodoro
+        default:
+            return 0;
+    }
+}
 
 </script>
 
 </body>
 
 </html>
-
