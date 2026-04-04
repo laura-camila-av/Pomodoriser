@@ -110,6 +110,6 @@ This is a personal project, but feedback and suggestions are welcome!
 
 ---
 
-## 📄 License
+## License
 
 This project is open-source and available under the MIT License.
